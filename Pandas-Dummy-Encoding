@@ -1,0 +1,11 @@
+#Load Data:-
+df = sns.load_dataset("titanic")
+df4 = df.copy()
+
+
+# Encoding using Dummy in "alive" column:
+dummy = pd.get_dummies(df4["alive"], drop_first=True, prefix="alive", prefix_sep="_").astype("int64")
+dummy_val = pd.DataFrame(dummy)
+df4.drop(["alive"], axis=1, inplace=True)
+new_df = pd.concat([df4,dummy_val], axis=1)
+new_df.head()
