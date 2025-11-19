@@ -1,0 +1,53 @@
+## 1)  Import Libraries :-
+import pandas as pd
+import seaborn as sns
+from sklearn.preprocessing import LabelEncoder , OrdinalEncoder
+le = LabelEncoder()
+orda = OrdinalEncoder()
+
+
+## 2)  Loading Data :- 
+df = sns.load_dataset("titanic")
+df1 = df.copy()
+df2 = df.copy()
+df3 = df.copy()
+df4 = df.copy()
+df5 = df.copy()
+
+
+## 3)  Data Cleaning :-
+df["age"] = df["age"].fillna(df["age"].mean())
+df = df.drop("deck", axis=1)
+df.isna().sum()
+
+
+## 4)  Label Encoding in "sex","embarked","who" and "age column" :-
+df1["sex"] = le.fit_transform(df1["sex"])
+df1["embarked"] = le.fit_transform(df1["embarked"])
+df1["who"] = le.fit_transform(df1["who"])
+df1["age"] = df1["age"].fillna(df1["age"].mean())
+df1.head()
+
+
+## 5)  Ordinal Encoding in "class" column :-
+df2["class"] = orda.fit_transform(df1[["class"]])
+df2.head()
+
+
+## 6)  Encoding using Dummy in "alive" column :-
+dummy = pd.get_dummies(df4["alive"], drop_first=True, prefix="alive", prefix_sep="_").astype("int64")
+dummy_val = pd.DataFrame(dummy)
+df4.drop(["alive"], axis=1, inplace=True)
+new_df = pd.concat([df4,dummy_val], axis=1)
+new_df.head()
+
+
+## 7)  Dummy encoding using for loop in "sex" column :-
+df5['sex_male'] = 0
+df5['sex_female'] = 0
+
+for index, row in df5.iterrows():
+    if row['sex'] == 'male':
+        df5.loc[index, 'sex_male'] = 1
+    elif row['sex'] == 'female':
+        df5.loc[index, 'sex_female'] = 1
