@@ -1,0 +1,6 @@
+# Label Encoding in "sex", "embarked", "who", and "age column":
+df1["sex"] = le.fit_transform(df1["sex"])
+df1["embarked"] = le.fit_transform(df1["embarked"])
+df1["who"] = le.fit_transform(df1["who"])
+df1["age"] = df1["age"].fillna(df1["age"].mean())
+df1.head()
