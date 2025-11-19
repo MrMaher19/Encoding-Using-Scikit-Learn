@@ -1,0 +1,19 @@
+#Load Data:-
+df = sns.load_dataset("titanic")
+df5 = df.copy()
+
+
+# Dummy encoding using a for loop in the "sex" column:
+df5['sex_male'] = 0
+df5['sex_female'] = 0
+
+for index, row in df5.iterrows():
+    if row['sex'] == 'male':
+        df5.loc[index, 'sex_male'] = 1
+    elif row['sex'] == 'female':
+        df5.loc[index, 'sex_female'] = 1
+
+# Drop the original 'sex' column
+df5 = df5.drop('sex', axis=1)
+
+df5.head()
