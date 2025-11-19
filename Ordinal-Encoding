@@ -1,0 +1,14 @@
+import pandas as pd
+import seaborn as sns
+from sklearn.preprocessing import OrdinalEncoder
+orda = OrdinalEncoder()
+
+
+# Load Data:
+df = sns.load_dataset("titanic")
+df2 = df.copy()
+
+
+# Ordinal Encoding in "class" column:
+df2["class"] = orda.fit_transform(df1[["class"]])
+df2.head()
